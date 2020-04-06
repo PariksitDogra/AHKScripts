@@ -13,6 +13,11 @@ Random, furnaceWait, 5000, 6000
 Random, bankTimer, 1000, 2000
 Random, moveInX, -5, 5
 Random, moveInY, -5, 5
+Random, bigMoveX, -15, 15
+Random, bigMoveY, -15, 15
+Random, mediumMoveX, -10, 10
+Random, mediumMoveY, -10, 10
+Random, smallMove, -2, 2
 Random, mouseMovingX, 44,465
 Random, mouseMovingY, 111, 305
 Random, makeRingTimer, 55000, 58000
@@ -24,6 +29,8 @@ Random, makeRingTimer, 55000, 58000
 	CheckEnergy(){
 		Random, sleepTimer1, 200, 350
 		Random, mouseTimer1, 1000, 2000
+		Random, moveInX1, -15, 15
+		Random, moveInY1, -15, 15
 		PixelSearch, bootColourX, bootColourY, 562,144,574,155, 0x8F6239, 5, RGB Fast
 		if (ErrorLevel){
 			;do nothing
@@ -34,7 +41,7 @@ Random, makeRingTimer, 55000, 58000
 				;do nothing
 			}
 			else{
-				RandomBezier(0, 0, bootColourX, bootColourY,"T" mouseTimer1 "OT5 OB5 OL5 OR5 RO P3-4")
+				RandomBezier(0, 0, bootColourX+moveInX1, bootColourY+moveInY1,"T" mouseTimer1 "OT5 OB5 OL5 OR5 RO P3-4")
 				Sleep sleepTimer1
 				Click 
 				Sleep sleepTimer1
@@ -47,7 +54,7 @@ Random, makeRingTimer, 55000, 58000
 		ExitApp
 	}
 	else {
-		RandomBezier(0,0,settingsx1,settingsy1,"T" mouseTimer "OT10 OB10 OL10 OR10 RO P3-4") ;Move to settings
+		RandomBezier(0,0,settingsx1+bigMoveX,settingsy1+bigMoveY,"T" mouseTimer "OT10 OB10 OL10 OR10 RO P3-4") ;Move to settings
 		Sleep sleepTimer
 		Click ;Click on settings
 		Sleep sleepTimer
@@ -58,7 +65,7 @@ Random, makeRingTimer, 55000, 58000
 		ExitApp
 	}
 	else {
-		RandomBezier(0, 0 ,zoomx1,zoomy1,"T" mouseTimer "OT2 OB2 OL2 OR2 RO P3-4") ;move to zoom
+		RandomBezier(0, 0 ,zoomx1+2,zoomy1,"T" mouseTimer "OT2 OB2 OL2 OR2 RO P3-4") ;move to zoom
 		Sleep sleepTimer
 		Click %zoomx1%, %zoomy1% ;click zoom
 		Sleep sleepTimer
@@ -69,7 +76,7 @@ Random, makeRingTimer, 55000, 58000
 		ExitApp
 	}
 	else {
-		RandomBezier(zoomx1, zoomy1, backpackx1, backpacky1,"T" mouseTimer "OT5 OB5 OL5 OR5 P3-4") ;move to backpack
+		RandomBezier(zoomx1, zoomy1, backpackx1+bigMoveX, backpacky1+bigMoveY,"T" mouseTimer "OT5 OB5 OL5 OR5 P3-4") ;move to backpack
 		Sleep sleepTimer
 		Click ;click zoom
 		Sleep sleepTimer
@@ -81,7 +88,7 @@ Random, makeRingTimer, 55000, 58000
 		ExitApp
 	}
 	else {
-		RandomBezier(backpackx1,backpacky1,compassx1,compassy1,"T" mouseTimer "OT15 OB15 OL15 OR15 P3-4") ;Move to compass
+		RandomBezier(backpackx1,backpacky1,compassx1+mediumMoveX,compassy1+mediumMoveY,"T" mouseTimer "OT15 OB15 OL15 OR15 P3-4") ;Move to compass
 		Sleep sleepTimer
 		Click
 		Sleep sleepTimer
@@ -96,7 +103,7 @@ Random, makeRingTimer, 55000, 58000
 		ExitApp
 	}
 	else {
-		RandomBezier(compassx1, compassy1, bankx1, banky1,"T" mouseTimer "OT5 OB5 OL5 OR5 P3-4") ;open bank
+		RandomBezier(compassx1, compassy1, bankx1+moveInX, banky1+moveInY,"T" mouseTimer "OT5 OB5 OL5 OR5 P3-4") ;open bank
 		Sleep sleepTimer
 		Click ;click bank
 		Sleep sleepTimer
@@ -111,7 +118,7 @@ loop {
 		ExitApp
 	}
 	else {
-		RandomBezier(0, 0, matx1,maty1,"T" mouseTimer "OT10 OB10 OL10 OR10 RO P3-4") ;Withdraw mats
+		RandomBezier(0, 0, matx1+bigMoveX,maty1+bigMoveY,"T" mouseTimer "OT10 OB10 OL10 OR10 RO P3-4") ;Withdraw mats
 		Sleep sleepTimer
 		Click
 		Sleep sleepTimer
@@ -122,7 +129,7 @@ loop {
 		ExitApp
 	}
 	else {
-		RandomBezier(matx1, maty1, closebankx1, closebanky1,"T" mouseTimer "OT10 OB10 OL10 OR10 P3-4") ;Move to close bank button
+		RandomBezier(matx1, maty1, closebankx1+mediumMoveX, closebanky1+mediumMoveY,"T" mouseTimer "OT10 OB10 OL10 OR10 P3-4") ;Move to close bank button
 		Sleep sleepTimer
 		Click ;close bank
 		Sleep sleepTimer
@@ -135,7 +142,7 @@ loop {
 		ExitApp
 	}
 	else {
-		RandomBezier(0, 0, furnacex1, furnacey1,"T" mouseTimer "OT2 OB2 OL5 OR5 RO P3-4") ;Move to furnace
+		RandomBezier(0, 0, furnacex1+mediumMoveX, furnacey1+smallMove,"T" mouseTimer "OT2 OB2 OL5 OR5 RO P3-4") ;Move to furnace
 		Sleep sleepTimer
 		Click ;click furnace
 		Sleep sleepTimer
@@ -152,7 +159,7 @@ loop {
 				}
 				else {
 					Sleep sleepTimer
-					RandomBezier(0, 0, clickringx1, clickringy1,"T" mouseTimer "OT5 OB5 OL5 OR5 RO P3-4") ;Move to make rings
+					RandomBezier(0, 0, clickringx1+bigMoveX, clickringy1+bigMoveY,"T" mouseTimer "OT5 OB5 OL5 OR5 RO P3-4") ;Move to make rings
 					Sleep sleepTimer
 					Click ;click rings
 					Sleep makeRingTimer
@@ -168,7 +175,7 @@ loop {
 		ExitApp
 	}
 	else {
-		RandomBezier(0, 0, bankx2, banky2,"T" mouseTimer "OT5 OB5 OL5 OR5 RO P3-4") ;hover over bank
+		RandomBezier(0, 0, bankx2+moveInX, banky2+smallMove,"T" mouseTimer "OT5 OB5 OL5 OR5 RO P3-4") ;hover over bank
 		Sleep sleepTimer
 		Click ;click bank
 		Sleep sleepTimer
@@ -186,7 +193,7 @@ loop {
 					}
 					else {
 						Sleep sleepTimer
-						RandomBezier(0, 0, depositx1, deposity1,"T" mouseTimer "OT15 OB15 OL15 OR15 RO P3-4") ;Move deposit button
+						RandomBezier(0, 0, depositx1+bigMoveX, deposity1+bigMoveY,"T" mouseTimer "OT15 OB15 OL15 OR15 RO P3-4") ;Move deposit button
 						Sleep sleepTimer
 						Click ;click deposit
 						Sleep sleepTimer
